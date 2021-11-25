@@ -19,3 +19,15 @@ primary key (`id`)
 
 insert into `users` values (null,'user','pass','1')
 insert into `authorities` values (null,'user','write')
+
+
+create table `customer` (
+`id` int not null auto_increment,
+`email` varchar (45) not null,
+`pwd` varchar (45) not null,
+`role` varchar (45) not null,
+primary key (`id`)
+);
+
+insert into `customer` values (null,'user@email.com','pwd','write')
+

@@ -30,12 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().httpBasic();
   }
 
-  @Bean
-  public UserDetailsService userDetailsService (DataSource dataSource) { //Datasource se crea a partir de los datos
-    // introducidos en application.properties
-    return new JdbcUserDetailsManager((dataSource));
-    //JDBC llamará al método loadUsersByUsername
-  }
+
 
   @Bean
   public PasswordEncoder passwordEncoder (){
