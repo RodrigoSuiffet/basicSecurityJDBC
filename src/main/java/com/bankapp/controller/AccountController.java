@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
 
-  @GetMapping("/notices")
-  public String get(String input) {
+  @GetMapping("/account")
+  public String getAccount(String input) {
     return "Sitio: Noticias";
   }
 }

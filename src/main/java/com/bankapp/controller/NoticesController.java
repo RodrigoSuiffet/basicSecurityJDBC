@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class NoticesController {
 
   @GetMapping("/notices")
-  public String get(String input) {
+  public String getNotices(String input) {
     return "Sitio: Noticias";
   }
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BalanceController {
 
   @GetMapping("/balance")
-  public String get(String input) {
+  public String getBalance(String input) {
     return "Sitio: Balance";
   }
 }

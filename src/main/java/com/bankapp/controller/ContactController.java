@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ContactController {
 
   @GetMapping("/contact")
-  public String get(String input) {
+  public String getContact(String input) {
     return "Sitio: Contacto";
   }
 
