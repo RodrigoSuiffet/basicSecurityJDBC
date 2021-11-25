@@ -1,5 +1,7 @@
 package com.bankapp.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,9 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,21 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().formLogin()
         .and().httpBasic();
   }
-  @Override
-  protected void configure (AuthenticationManagerBuilder auth) throws  Exception {
-    /*
-auth.inMemoryAuthentication().withUser("user").password("pass").authorities("user").and()
-    .withUser("admin").password("pass").authorities("admin").and()
-    .passwordEncoder(NoOpPasswordEncoder.getInstance());
 
-    --Cualquiera de las dos formas es válida a la hora de especificar inMemory users.
-     */
-    InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
-    UserDetails user = User.withUsername("user").password("pass").authorities("user").build();
-    UserDetails user2 = User.withUsername("admin").password("pass").authorities("admin").build();
-    userDetailsService.createUser(user);
-    userDetailsService.createUser(user2);
-    auth.userDetailsService(userDetailsService);
+  @Bean
+  public UserDetailsService userDetailsService (DataSource dataSource) { //Datasource se crea a partir de los datos
+    // introducidos en application.properties
+    return new JdbcUserDetailsManager((dataSource));
+    //JDBC llamará al método loadUsersByUsername
   }
 
   @Bean
